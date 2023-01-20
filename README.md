@@ -5,3 +5,70 @@ Delay() is blocking code.
 
 ![image](https://user-images.githubusercontent.com/14288989/213643674-daaf524b-bbab-4b66-a854-4ebf8807d5d2.png)
 
+millis () 
+
+![image](https://user-images.githubusercontent.com/14288989/213643816-9792648b-4977-44c4-a0c1-a3763592cc61.png)
+
+
+Code source:
+
+https://randomnerdtutorials.com/interrupts-timers-esp8266-arduino-ide-nodemcu/
+
+
+Code : Prints "hello world" to the Serial Monitor every minute - non blocking.
+
+```
+/*********
+  Rui Santos
+  Complete project details at https://randomnerdtutorials.com  
+*********/
+
+// constants won't change. Used here to set a pin number :
+const int ledPin =  26;      // the number of the LED pin
+
+// Variables will change :
+int ledState = LOW;             // ledState used to set the LED
+
+// Generally, you should use "unsigned long" for variables that hold time
+// The value will quickly become too large for an int to store
+unsigned long previousMillis = 0;        // will store last time LED was updated
+
+// constants won't change :
+const long interval = 1000;           // interval at which to blink (milliseconds)
+
+void setup() {
+  // set the digital pin as output:
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(115200);
+}
+
+void loop() {
+  // here is where you'd put code that needs to be running all the time.
+
+  // check to see if it's time to blink the LED; that is, if the
+  // difference between the current time and last time you blinked
+  // the LED is bigger than the interval at which you want to
+  // blink the LED.
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+    Serial.println ( "hello world");
+    // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW) {
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+
+    // set the LED with the ledState of the variable:
+    digitalWrite(ledPin, ledState);
+  }
+}
+```
+
+
+Board Manager configuration for Wemos D1
+
+![image](https://user-images.githubusercontent.com/14288989/213644044-584650f6-601e-4ea3-a1b5-de27dfba57c0.png)
